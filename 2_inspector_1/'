@@ -1,0 +1,17 @@
+// Immediately Invoked Function
+(
+    function(global) {
+
+        var inspector = {};
+        
+        inspector.add = function( item_var ) {
+            console.log( item_var );
+        }
+        // before the end of function(global) 
+        // Export something the global object
+        global.inspector = inspector ;
+
+    } // end function(global)
+
+// )(global);   // for nodejs
+)(window);  // for browser

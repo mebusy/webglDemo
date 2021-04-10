@@ -1,0 +1,12 @@
+
+#maincanvas {
+    width: 70%;
+    height: 100vh; /*100% only work when parent has specific height*/
+}
+
+#inspector_panel {
+    width: 29%;
+    height: 100vh;
+    background-color: lightgray;
+    float: right;
+}
