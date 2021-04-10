@@ -9,11 +9,11 @@
 
         var inspector = {};
         
-        // use: add( { varName } )
-        inspector.add = function( singleVarArray, min=0, max=100, env=global ) {
+        // use: input( { varName } )
+        inspector.input = function( singleVarArray, min=0, max=100, env=global ) {
             // console.log( singleVarArray );
             if (typeof singleVarArray != 'object') {
-                utils.insertHtml( "#inspector_panel", "<div>err: use .add( {variable} ) </div>" );
+                utils.insertHtml( "#inspector_panel", "<div>err: use .input( {variable} ) </div>" );
                 return;
             } 
 

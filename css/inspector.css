@@ -2,10 +2,12 @@
 #maincanvas {
     width: 70%;
     height: 100vh; /*100% only work when parent has specific height*/
+    float: left;
+    margin-right:-100px;  /*enable overlap*/
 }
 
 #inspector_panel {
-    width: 29%;
+    width: 29.8%;
     height: 100vh;
     background-color: lightgray;
     float: right;

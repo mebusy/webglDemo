@@ -1,16 +1,18 @@
-
 // main
+const canvas_w_percent = 0.7;
+
 const canvas = document.getElementById("maincanvas");
 
 const scene = new THREE.Scene(); // scene.add scene.remove
 // can be added to a scene, but it does not have to be part of the scene graph
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth * canvas_w_percent / window.innerHeight, 0.1, 1000 );
 
 // const renderer = new THREE.WebGLRenderer();
 const renderer = new THREE.WebGLRenderer( {
                  canvas: canvas,
                  antialias: true
 } );
+// clientWidth/clientHeight is the size the canvas is being displayed
 renderer.setSize( canvas.clientWidth, canvas.clientHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -39,6 +41,21 @@ const animate = function () {
 
 animate();
 
-inspector.add(  {rot_speed},0, 0.1  );
+inspector.input(  {rot_speed},0, 0.1  );
 
+
+
+// resize
+window.addEventListener( 'resize', onWindowResize, false );
+function onWindowResize(){
+    const w = window.innerWidth * canvas_w_percent ;
+    const h = window.innerHeight ;
+    // console.log( w,h, w/h );
+    canvas.width = w ;
+    canvas.height = h ;
+    
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+    renderer.setSize( w,h );
+}
 
