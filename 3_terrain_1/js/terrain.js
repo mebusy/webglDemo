@@ -4,7 +4,7 @@ class Noise {
     
     static GenerateNoiseMap( mapWidth, mapHeight, scale ) {
         // underlying bytes
-        let buffer = new ArrayBuffer( mapWidth * mapHeight * 2 ); // *2 for 32bit float
+        let buffer = new ArrayBuffer( mapWidth * mapHeight * 4 ); // *2 for 32bit float
         let noiseMap = new Float32Array(buffer);
 
         if (scale <=0) {
@@ -20,23 +20,48 @@ class Noise {
                 noiseMap[x+y*mapWidth] = value ;
             }
         }
+        return noiseMap;
     }
 }
+
 
 
 class MapGenerator {
-    constructor() {
-        this.mapWidth = 256;
-        this.mapHeight = 256;
-        this.noiseScale = 1.0;
+    constructor( width, height, scale ) {
+        console.log( "new MapGenerator:", width, height, scale )
+        this.mapWidth = width;
+        this.mapHeight = height;
+        this.scale = scale;
+        this.pixel_bytes = 3 ;
+        this.data = new Uint8Array( this.pixel_bytes * width * height );
+        this.texture = new THREE.DataTexture( this.data, width, height, THREE.RGBFormat );
+
+        let inst = this ;
+        inspector.input(  { scale }, 0.3, 16, function(){ inst.GenerateMap(); } , inst  );
     }
 
     GenerateMap() {
-        let noiseMap = Noise.GenerateNoiseMap( this.mapWidth, this.mapHeight, this.noiseScale );
+        let noiseMap = Noise.GenerateNoiseMap( this.mapWidth, this.mapHeight, this.scale );
+        let width = this.mapWidth ; 
+        let height = this.mapHeight ;
+
+        // generate texture
+        let pixel_bytes = this.pixel_bytes; 
+        let data = this.data;
+
+        var size = width * height; //Pixel size
+        // console.log( noiseMap.length, width * height, width, height);
+        for ( let i = 0; i < size; i++ ) {
+            let stride = i*pixel_bytes ;
+            let v = noiseMap[i];
+            data[ stride ]     = Math.floor( v * 255 );
+            data[ stride + 1 ] = Math.floor( v * 255 );
+            data[ stride + 2 ] = Math.floor( v * 255 );
+        }
+        this.texture.needsUpdate = true; //!!
     }
 
-}
-
-class MapDisplay {
 
 }
+
+

@@ -17,9 +17,16 @@ renderer.setSize( canvas.clientWidth, canvas.clientHeight );
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.PlaneGeometry()
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+let width = 100; //Texture width
+let height = 100; //Texture height
+let scale = 0.3 ;
+const mapGen = new MapGenerator( width, height, scale );
+mapGen.GenerateMap();
+const material = new THREE.MeshBasicMaterial( { 
+                            map: mapGen.texture
+                            } );
+const plane = new THREE.Mesh( geometry, material );
+scene.add( plane );
 
 camera.position.z = 5;
 
@@ -32,8 +39,8 @@ document.body.appendChild( stats.domElement );
 const animate = function () {
     requestAnimationFrame( animate );
 
-    cube.rotation.x += rot_speed;
-    cube.rotation.y += rot_speed;
+    plane.rotation.x += rot_speed;
+    plane.rotation.y += rot_speed;
 
     renderer.render( scene, camera );
     stats.update();

@@ -1,9 +1,13 @@
 
 var utils = {};
 
-utils.insertHtml = function (css_selector, html) {
-  var targetElem = document.querySelector(css_selector);
-  targetElem.innerHTML = html;
+utils.insertHtml = function (css_selector, html, bAppend=false) {
+    var targetElem = document.querySelector(css_selector);
+    if (bAppend == true) {
+        targetElem.innerHTML += html;
+    } else {
+        targetElem.innerHTML = html;
+    }
 };
 
 // function return the variable name in source code
