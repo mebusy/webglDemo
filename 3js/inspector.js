@@ -5,6 +5,7 @@
         const itemHtml = `
             <label> {0}({1}-{2}):</label>
             <input type="number" id="id_{0}" min="{1}" max="{2}" step="{3}" value="{4}">
+            <div></div>
         `;
 
         var inspector = {};
@@ -17,13 +18,13 @@
                 return;
             } 
 
-            const step = (max-min)/10;
+            const step = ((max-min)/20).toFixed(2);
             const varName = utils.varToString( singleVarArray )
 
             utils.insertHtml( "#inspector_panel", itemHtml.format( varName, min, max, step, env[varName] ), true);
 
             const ele = document.querySelector('#id_{0}'.format(varName) );
-            // console.log( typeof ele, "addEventListener" )
+            console.log(  ele, "addEventListener" )
             ele.addEventListener( 'input', function(e){ 
                 console.log(  e.target.value, typeof  e.target.value, env[varName] , func );
                 env[varName] = Number(e.target.value);

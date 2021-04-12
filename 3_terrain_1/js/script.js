@@ -50,8 +50,6 @@ animate();
 
 inspector.input(  {rot_speed},0, 0.1  );
 
-
-
 // resize
 window.addEventListener( 'resize', onWindowResize, false );
 function onWindowResize(){
