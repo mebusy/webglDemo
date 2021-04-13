@@ -37,7 +37,7 @@ class MapGenerator {
         this.texture = new THREE.DataTexture( this.data, width, height, THREE.RGBFormat );
 
         let inst = this ;
-        inspector.input(  { scale }, 0.3, 16, function(){ inst.GenerateMap(); } , inst  );
+        inspector.input( inst, "scale", 0.3, 16, function(){ inst.GenerateMap(); }  );
     }
 
     GenerateMap() {
