@@ -4,7 +4,13 @@ var utils = {};
 utils.insertHtml = function (css_selector, html, bAppend=false) {
     var targetElem = document.querySelector(css_selector);
     if (bAppend == true) {
+        /*
+        // with .innerHTML, destroys event listeners
         targetElem.innerHTML += html;
+        /*/
+        // with .insertAdjacentHTML, preserves event listeners
+        targetElem.insertAdjacentHTML('beforeend', html );
+        //*/
     } else {
         targetElem.innerHTML = html;
     }
